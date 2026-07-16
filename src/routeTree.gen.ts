@@ -14,6 +14,7 @@ import { Route as TranslateRouteImport } from './routes/translate'
 import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PlacesRouteImport } from './routes/places'
+import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as FestivalsRouteImport } from './routes/festivals'
 import { Route as BusinessesRouteImport } from './routes/businesses'
 import { Route as AssistantRouteImport } from './routes/assistant'
@@ -44,6 +45,11 @@ const PlacesRoute = PlacesRouteImport.update({
   path: '/places',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KnowledgeRoute = KnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FestivalsRoute = FestivalsRouteImport.update({
   id: '/festivals',
   path: '/festivals',
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/assistant': typeof AssistantRoute
   '/businesses': typeof BusinessesRoute
   '/festivals': typeof FestivalsRoute
+  '/knowledge': typeof KnowledgeRoute
   '/places': typeof PlacesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/assistant': typeof AssistantRoute
   '/businesses': typeof BusinessesRoute
   '/festivals': typeof FestivalsRoute
+  '/knowledge': typeof KnowledgeRoute
   '/places': typeof PlacesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/assistant': typeof AssistantRoute
   '/businesses': typeof BusinessesRoute
   '/festivals': typeof FestivalsRoute
+  '/knowledge': typeof KnowledgeRoute
   '/places': typeof PlacesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/assistant'
     | '/businesses'
     | '/festivals'
+    | '/knowledge'
     | '/places'
     | '/sitemap.xml'
     | '/stories'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/assistant'
     | '/businesses'
     | '/festivals'
+    | '/knowledge'
     | '/places'
     | '/sitemap.xml'
     | '/stories'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/assistant'
     | '/businesses'
     | '/festivals'
+    | '/knowledge'
     | '/places'
     | '/sitemap.xml'
     | '/stories'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   AssistantRoute: typeof AssistantRoute
   BusinessesRoute: typeof BusinessesRoute
   FestivalsRoute: typeof FestivalsRoute
+  KnowledgeRoute: typeof KnowledgeRoute
   PlacesRoute: typeof PlacesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoriesRoute: typeof StoriesRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlacesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/knowledge': {
+      id: '/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/festivals': {
       id: '/festivals'
       path: '/festivals'
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   AssistantRoute: AssistantRoute,
   BusinessesRoute: BusinessesRoute,
   FestivalsRoute: FestivalsRoute,
+  KnowledgeRoute: KnowledgeRoute,
   PlacesRoute: PlacesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoriesRoute: StoriesRoute,

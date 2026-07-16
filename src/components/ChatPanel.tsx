@@ -1,18 +1,21 @@
 import { useState, useRef, useEffect } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { chatComplete, type ChatMessage } from "@/lib/chat.functions";
-import { Send, Loader2 } from "lucide-react";
+import { chatComplete, type ChatMessage, type ChatSource } from "@/lib/chat.functions";
+import { Send, Loader2, BookOpen } from "lucide-react";
 
 type Props = {
   system: string;
   greeting?: string;
   placeholder?: string;
   suggestions?: string[];
+  groundOn?: "idoma-knowledge";
 };
 
-export function ChatPanel({ system, greeting, placeholder, suggestions }: Props) {
+type UiMessage = ChatMessage & { sources?: ChatSource[] };
+
+export function ChatPanel({ system, greeting, placeholder, suggestions, groundOn }: Props) {
   const call = useServerFn(chatComplete);
-  const [messages, setMessages] = useState<ChatMessage[]>(
+  const [messages, setMessages] = useState<UiMessage[]>(
     greeting ? [{ role: "assistant", content: greeting }] : [],
   );
   const [input, setInput] = useState("");
@@ -28,7 +31,7 @@ export function ChatPanel({ system, greeting, placeholder, suggestions }: Props)
     const q = text.trim();
     if (!q || loading) return;
     setError(null);
-    const next: ChatMessage[] = [...messages, { role: "user", content: q }];
+    const next: UiMessage[] = [...messages, { role: "user", content: q }];
     setMessages(next);
     setInput("");
     setLoading(true);
@@ -36,10 +39,16 @@ export function ChatPanel({ system, greeting, placeholder, suggestions }: Props)
       const res = await call({
         data: {
           system,
-          messages: next.filter((m) => m.role !== "system"),
+          messages: next
+            .filter((m) => m.role !== "system")
+            .map(({ role, content }) => ({ role, content })),
+          groundOn,
         },
       });
-      setMessages([...next, { role: "assistant", content: res.content || "…" }]);
+      setMessages([
+        ...next,
+        { role: "assistant", content: res.content || "…", sources: res.sources },
+      ]);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");
       setMessages(next);
@@ -64,6 +73,24 @@ export function ChatPanel({ system, greeting, placeholder, suggestions }: Props)
               }`}
             >
               {m.content}
+              {m.role === "assistant" && m.sources && m.sources.length > 0 && (
+                <div className="mt-3 pt-3 border-t border-border/60">
+                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground inline-flex items-center gap-1 mb-1.5">
+                    <BookOpen className="w-3 h-3" /> Sources from verified corpus
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {m.sources.map((s) => (
+                      <span
+                        key={s.id}
+                        className="text-[11px] px-2 py-0.5 rounded-full bg-background border text-foreground/80"
+                        title={s.category}
+                      >
+                        {s.title}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ))}
