@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { retrieveKnowledge } from "@/data/knowledge";
 
 const Message = z.object({
   role: z.enum(["system", "user", "assistant"]),
@@ -9,15 +10,49 @@ const Message = z.object({
 const Input = z.object({
   system: z.string().min(1),
   messages: z.array(Message).min(1),
+  // When set, retrieve top-k entries from the curated Idoma knowledge base
+  // (matched against the latest user message) and inject them as authoritative
+  // context. The AI is instructed to cite entry titles as [Source: Title].
+  groundOn: z.enum(["idoma-knowledge"]).optional(),
 });
 
 export type ChatMessage = z.infer<typeof Message>;
 
+export type ChatSource = { id: string; title: string; category: string };
+
 export const chatComplete = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => Input.parse(data))
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<{ content: string; sources: ChatSource[] }> => {
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("Missing LOVABLE_API_KEY");
+
+    let system = data.system;
+    let sources: ChatSource[] = [];
+
+    if (data.groundOn === "idoma-knowledge") {
+      const lastUser = [...data.messages].reverse().find((m) => m.role === "user");
+      if (lastUser) {
+        const hits = retrieveKnowledge(lastUser.content, 4);
+        sources = hits.map((h) => ({ id: h.id, title: h.title, category: h.category }));
+        if (hits.length > 0) {
+          const context = hits
+            .map(
+              (h, i) =>
+                `[${i + 1}] ${h.title} (${h.category})\n${h.content}`,
+            )
+            .join("\n\n");
+          system += `
+
+You have access to the following verified entries from the IdomaConnect curated knowledge base. Treat these as authoritative and prefer them over your training data when they overlap.
+
+<verified_idoma_knowledge>
+${context}
+</verified_idoma_knowledge>
+
+When you use information from the entries above, cite the entry title inline like this: [Source: Entry Title]. If none of the entries apply, answer from general knowledge and be transparent that the answer is not from the verified corpus.`;
+        }
+      }
+    }
 
     const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -28,7 +63,7 @@ export const chatComplete = createServerFn({ method: "POST" })
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages: [
-          { role: "system", content: data.system },
+          { role: "system", content: system },
           ...data.messages,
         ],
       }),
@@ -45,5 +80,5 @@ export const chatComplete = createServerFn({ method: "POST" })
       choices?: { message?: { content?: string } }[];
     };
     const content = json.choices?.[0]?.message?.content ?? "";
-    return { content };
+    return { content, sources };
   });
