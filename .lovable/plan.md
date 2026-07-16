@@ -1,43 +1,55 @@
-The spec is huge (18 feature areas). Its own closing note recommends a polished prototype with 4–6 working features over trying to ship everything. I'll follow that.
+The current build covers the spec's own recommended "polished core" (Assistant, Tutor, Translator, Stories, Places, Festivals, Businesses, Landing). This plan fills the remaining gaps from the full spec, prioritized by hackathon impact.
 
-## Scope for v1
+## What's missing vs the spec
 
-**Fully working (AI-powered via Lovable AI Gateway, model `google/gemini-2.5-flash`):**
-1. **AI Cultural Assistant** — chat about Idoma history, customs, festivals, foods, rulers
-2. **AI Language Tutor** — chat-based lessons, phrases, quizzes
-3. **AI Translator** — English ↔ Idoma text translation with copy button
-4. **AI Story Teller** — generate folktales (Kids / Teen / Adult mode)
+Auth, admin dashboard, Google Maps, marketplace, reviews, favorites, forum, events, analytics, and — most importantly — the spec's standout differentiator: a **verified Idoma knowledge base** that the AI consults before answering (RAG-style grounding).
 
-**Static content (curated, browsable):**
-5. **Historical Places** — 6–8 curated sites (Otukpo, Ojira Hills, Ogba caves, etc.) with descriptions
-6. **Local Business Directory** — categorized sample listings (hotels, restaurants, artisans)
-7. **Festivals** — Aje-Alekwu, Eje-Alago, etc. cards
+## Scope for this pass (ordered by impact)
 
-**Landing page** — hero, mission, feature grid, culture-inspired visual identity.
+**1. Verified Idoma Knowledge Base + Grounded Assistant (the differentiator)**
+- New `src/data/knowledge.ts`: curated entries across LGAs, clans, rulers (Och'Idoma line), historical timeline, festivals, proverbs, greetings, tourist sites, cultural practices.
+- New `/knowledge` route: browsable, searchable library of these entries with categories.
+- Update `chat.functions.ts` to accept optional grounding context; the Assistant retrieves top-matching entries (simple keyword scoring) and injects them into the system prompt so the AI **cites** the knowledge base. Adds a "Sources" strip under assistant replies.
 
-## Deferred (not in v1)
+**2. Authentication (Lovable Cloud)**
+- Enable Lovable Cloud.
+- `/auth` route with email/password sign-in and sign-up (auto-confirm on).
+- `_authenticated` layout gate for user-only pages.
+- Header shows Sign in / Profile menu.
 
-Auth/roles, marketplace/checkout, tour booking, forum, leaderboard, admin dashboard, gallery, events calendar, news, Google Maps integration, voice, image generation for each site. These are large surfaces; call them out as "coming soon" or skip.
+**3. Simple Marketplace + Reviews + Favorites**
+- Extend `/businesses` with detail routes (`/businesses/$id`) showing description, contact placeholder, reviews, and a Favorite toggle.
+- `reviews` and `favorites` tables (RLS: authenticated users write their own; public read).
+- Same detail pattern for `/places/$slug` (reviews + favorites).
 
-## Technical
+**4. Google Maps on Places**
+- Add lat/lng to `PLACES` data.
+- `/places` gets an interactive map (Leaflet + OpenStreetMap tiles — no API key needed, works on Workers, keeps prototype friction-free). If the user specifically wants Google Maps, we'll swap later — flagged as an intentional deviation.
 
-- **Stack**: TanStack Start (already scaffolded), Tailwind v4, shadcn.
-- **AI**: Enable Lovable Cloud → use AI Gateway via server function calling `https://ai.gateway.lovable.dev/v1/chat/completions` with `LOVABLE_API_KEY`. One shared `chat.functions.ts` that accepts a `system` prompt + messages, used by Assistant, Tutor, Translator, Storyteller.
-- **Routes**: `/` (landing), `/assistant`, `/tutor`, `/translate`, `/stories`, `/places`, `/festivals`, `/businesses`. Each with its own `head()` meta.
-- **Design system**: Idoma palette in `src/styles.css` via oklch — deep green primary (~#1B5E20), gold secondary (~#D4AF37), terracotta accent (~#A0522D), warm off-white bg. Serif display font (Fraunces) + sans body (Inter) via `<link>` in root head. Subtle geometric pattern SVG for section dividers.
-- **Hero image**: generate one culturally-evocative hero image (Idoma landscape/motif) with imagegen.
-- **Content data**: hardcoded TS arrays in `src/data/` for places, festivals, businesses.
-- **SEO**: per-route head(), sitemap.xml + robots.txt.
+**5. Minimal Admin Dashboard**
+- `user_roles` table + `has_role()` per the roles guidance.
+- `_authenticated/admin` route gated by `admin` role: lists users, review counts, basic AI usage stats (row counts from an `ai_chats` log table we add for analytics).
+
+## Deferred (explicitly out of this pass)
+
+Forum, events calendar, full checkout/payments, image uploads, quiz scoring engine (Tutor stays chat-based), news feed. These are called out as "coming soon" in the UI.
+
+## Technical notes
+
+- Grounding: precompute a simple token index over `KNOWLEDGE` in-memory on the server; top-k=4 entries injected as `<context>` blocks in the system prompt with an instruction to cite entry titles.
+- All new tables in one migration with `GRANT` + RLS + policies per the public-schema-grants and user-roles rules.
+- No Supabase Edge Functions — use `createServerFn` and TSS server routes only.
+- Maps: `react-leaflet` + `leaflet` (CSS via `<link>` in `__root.tsx` head).
+- Auth-protected server fns via `requireSupabaseAuth` middleware.
 
 ## Build order
 
-1. Enable Lovable Cloud (needed for AI Gateway key).
-2. Design tokens + fonts + shared layout (header nav + footer) in `__root.tsx`.
-3. Landing page (replaces placeholder index).
-4. Shared `chat.functions.ts` server fn + reusable `<ChatPanel>` component.
-5. Four AI feature routes.
-6. Three content routes with curated data.
-7. Sitemap/robots.
-8. Verify build + smoke-test one AI call.
+1. Knowledge base data + `/knowledge` route + grounding in `chat.functions.ts` + Assistant citations.
+2. Enable Cloud → auth pages + `_authenticated` gate + header.
+3. Migration: `reviews`, `favorites`, `user_roles`, `ai_chats`, roles enum, `has_role`.
+4. Business/Place detail routes with reviews + favorites.
+5. Leaflet map on `/places`.
+6. Admin dashboard.
+7. Smoke-test each: grounded chat cites a source, sign-up works, review posts, map renders, admin loads for admin role.
 
 Ready to proceed?
