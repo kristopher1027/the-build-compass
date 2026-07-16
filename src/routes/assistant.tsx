@@ -39,12 +39,17 @@ function AssistantPage() {
         </div>
         <h1 className="mt-2 font-display text-3xl sm:text-4xl">Ask the elders — through AI.</h1>
         <p className="mt-3 text-muted-foreground">
-          Curious about a clan, festival, or Idoma word? Ask below.
+          Grounded on a{" "}
+          <a href="/knowledge" className="underline underline-offset-2 hover:text-foreground">
+            verified Idoma knowledge base
+          </a>
+          . Answers cite their sources.
         </p>
       </div>
       <ChatPanel
         system={SYSTEM}
-        greeting="Ije oyi! I am your Idoma cultural assistant. Ask me about our history, festivals, customs, or language."
+        groundOn="idoma-knowledge"
+        greeting="Ije oyi! I am your Idoma cultural assistant. Ask me about our history, festivals, customs, or language — I'll consult the verified corpus first."
         placeholder="Who founded Otukpo?"
         suggestions={[
           "Who is the Och'Idoma?",
