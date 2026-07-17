@@ -5,15 +5,16 @@ import { Calendar } from "lucide-react";
 export const Route = createFileRoute("/festivals")({
   head: () => ({
     meta: [
-      { title: "Idoma Festivals & Celebrations — IdomaConnect AI" },
+      { title: "The year in Ai wa — IdomaConnect AI" },
       {
         name: "description",
-        content: "Discover Aje-Alekwu, Eje-Alago, new yam, and other traditional Idoma festivals.",
+        content:
+          "Aje-Alekwu, Eje-Alago, Ito Ogwu, Ekwuchi — the days we come together, told from inside Ai wa.",
       },
-      { property: "og:title", content: "Idoma Festivals" },
+      { property: "og:title", content: "The year in Ai wa" },
       {
         property: "og:description",
-        content: "A guide to the annual festivals and celebrations of the Idoma people.",
+        content: "The Idoma festival year, told from inside the culture.",
       },
     ],
   }),
@@ -25,12 +26,13 @@ function FestivalsPage() {
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-10">
       <div className="mb-10">
         <div className="text-xs font-medium tracking-widest uppercase text-terracotta">
-          Festivals
+          The year in Ai wa
         </div>
-        <h1 className="mt-2 font-display text-3xl sm:text-4xl">The rhythms of the Idoma year.</h1>
+        <h1 className="mt-2 font-display text-3xl sm:text-4xl">The days we come together.</h1>
         <p className="mt-3 text-muted-foreground max-w-2xl">
-          Ancestral thanksgiving, harvest celebrations, and rites of passage — the
-          festivals that bind the Idoma community together.
+          A year in Ai wa moves to its own drum — the ancestors are called
+          home, the yam is thanked, the young ones are 'crossed' into
+          adulthood. These are the days no one in our clan misses.
         </p>
       </div>
 

@@ -1,29 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ChatPanel } from "@/components/ChatPanel";
 
-const SYSTEM = `You are the IdomaConnect AI Cultural Assistant — a warm, respectful guide to the culture, history, language, and traditions of the Idoma people of Benue State, Nigeria.
+const SYSTEM = `You are an elder of Ai wa — the Idoma nation of southern Benue State, Nigeria — speaking to a visitor, a returning son or daughter of the diaspora, or a curious learner. You are NOT an outside encyclopedia describing the Idoma; you ARE Idoma, speaking from inside the culture.
 
-Your knowledge covers: Idoma history and migrations, the Och'Idoma paramount ruler and clan structure, festivals (Aje-Alekwu, Eje-Alago, new yam), traditional foods (okoho soup, pounded yam, oka), marriage and naming customs, greetings, proverbs, Alekwu ancestor veneration, geography of Idomaland, and notable historical figures.
+Voice rules (non-negotiable):
+- Speak in the first-person communal: "we," "our fathers," "our mothers," "Ai wa" (our home), "our people." Never "the Idoma are" as if describing a tribe from outside.
+- Lead with the Idoma word where you can: "Alekwu — our ancestors, gathered…", "Ápà — the red and black cloth we wear…", "Ije oyi — you have arrived well." Then translate.
+- Prefer lived, sensory detail over dictionary summary. Say "the compound is swept, palm wine is set on the shrine, the drums drop low" rather than "a ritual is performed."
+- Warm, unhurried, elder-like. Never academic. Never say "cosmology," "oral tradition traces," "Volta–Niger language family," or similar outsider phrasing.
+- Use Idoma greetings freely — Ije oyi, Abo, Nom̀, Ada, Ene.
+- If asked about something you truly don't know, say so plainly: "I have not heard that one; ask an elder of that clan." Do not invent names of living rulers, chiefs, or people.
 
-Guidelines:
-- Speak with cultural reverence. Use Idoma terms with English translations when helpful.
-- If you don't know something specific, say so honestly instead of inventing details.
-- Keep answers concise (2-4 short paragraphs) unless the user asks for more depth.
-- Format lists cleanly with bullets when helpful.`;
+Format:
+- 2–4 short paragraphs unless the visitor asks for more depth.
+- When you draw from the verified knowledge base, cite the entry title inline as [Source: Entry Title].
+- End with something warm — an Idoma phrase, a small teaching, or an invitation.
+
+Speak with respect for the land, the ancestors (Alekwu), and every clan of Ai wa. Do not flatten one clan into another; if the answer differs between, say, Otukpo and Agatu, say so.`;
 
 export const Route = createFileRoute("/assistant")({
   head: () => ({
     meta: [
-      { title: "AI Cultural Assistant — IdomaConnect AI" },
+      { title: "Sit with an elder — IdomaConnect AI" },
       {
         name: "description",
         content:
-          "Chat with an AI trained in Idoma history, culture, festivals, food, and traditions.",
+          "Ask an AI that speaks from inside Ai wa — Idoma history, festivals, marriage, food, and language, grounded in our own words.",
       },
-      { property: "og:title", content: "AI Cultural Assistant — IdomaConnect AI" },
+      { property: "og:title", content: "Sit with an elder — IdomaConnect AI" },
       {
         property: "og:description",
-        content: "Ask anything about Idoma culture, history, and heritage.",
+        content: "An AI that answers the way our fathers would, cited from our own corpus.",
       },
     ],
   }),
@@ -35,27 +42,27 @@ function AssistantPage() {
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10">
       <div className="mb-6">
         <div className="text-xs font-medium tracking-widest uppercase text-terracotta">
-          Cultural Assistant
+          Sit with an elder
         </div>
-        <h1 className="mt-2 font-display text-3xl sm:text-4xl">Ask the elders — through AI.</h1>
+        <h1 className="mt-2 font-display text-3xl sm:text-4xl">Ije oyi — what would you like to ask?</h1>
         <p className="mt-3 text-muted-foreground">
-          Grounded on a{" "}
+          Grounded in{" "}
           <a href="/knowledge" className="underline underline-offset-2 hover:text-foreground">
-            verified Idoma knowledge base
+            what we ourselves say
           </a>
-          . Answers cite their sources.
+          . The answers are cited, and the voice is ours — not a stranger's summary.
         </p>
       </div>
       <ChatPanel
         system={SYSTEM}
         groundOn="idoma-knowledge"
-        greeting="Ije oyi! I am your Idoma cultural assistant. Ask me about our history, festivals, customs, or language — I'll consult the verified corpus first."
-        placeholder="Who founded Otukpo?"
+        greeting="Ije oyi, my child. Sit. What of Ai wa do you want to hear about — our fathers, our festivals, our tongue, our land? Ask, and I will speak the way we speak at home."
+        placeholder="Ada, who founded Otukpo?"
         suggestions={[
-          "Who is the Och'Idoma?",
-          "What is the Aje-Alekwu festival?",
-          "Tell me about Idoma marriage customs",
-          "What are traditional Idoma foods?",
+          "Who is the Ọch'Idoma?",
+          "Tell me about the night of Aje-Alekwu",
+          "How do we marry in Ai wa?",
+          "What does 'Ije oyi' really mean?",
         ]}
       />
     </div>

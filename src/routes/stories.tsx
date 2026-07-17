@@ -7,15 +7,16 @@ import { Sparkles, Loader2 } from "lucide-react";
 export const Route = createFileRoute("/stories")({
   head: () => ({
     meta: [
-      { title: "Idoma Storyteller — IdomaConnect AI" },
+      { title: "Folktales by the fire — IdomaConnect AI" },
       {
         name: "description",
-        content: "AI-generated Idoma folktales, legends, and moral stories.",
+        content:
+          "Idoma folktales in the shape of the ones our grandfathers told after the yam was eaten.",
       },
-      { property: "og:title", content: "Idoma Storyteller" },
+      { property: "og:title", content: "Folktales by the fire" },
       {
         property: "og:description",
-        content: "Ancient Idoma legends and folktales, retold by AI.",
+        content: "Stories the way we tell them in Ai wa.",
       },
     ],
   }),
@@ -24,17 +25,17 @@ export const Route = createFileRoute("/stories")({
 
 type Mode = "kids" | "teen" | "adult";
 const MODES: { id: Mode; label: string; desc: string }[] = [
-  { id: "kids", label: "Kids", desc: "Simple, warm, moral tales" },
-  { id: "teen", label: "Teens", desc: "Adventure with cultural depth" },
-  { id: "adult", label: "Adults", desc: "Rich legends and ancestral lore" },
+  { id: "kids", label: "Little ones", desc: "Short, warm, a clear moral" },
+  { id: "teen", label: "Young ones", desc: "Vivid, brave, thick with our ways" },
+  { id: "adult", label: "Elders", desc: "Layered, Alekwu-touched, patient" },
 ];
 
 const TOPICS = [
-  "A legend of Alekwu the ancestor",
-  "Why the tortoise has a cracked shell",
-  "The founding of Otukpo",
-  "A tale of the new yam festival",
-  "Why the drum speaks to spirits",
+  "How Alekwu answered the disobedient son",
+  "Why the tortoise's shell is cracked",
+  "The night Otukpo was first named",
+  "The girl who danced for the new yam",
+  "Why the talking drum knows our secrets",
 ];
 
 function StoriesPage() {
@@ -54,16 +55,21 @@ function StoriesPage() {
     try {
       const res = await call({
         data: {
-          system: `You are an Idoma storyteller in the oral tradition. Write an original folktale or legend rooted in Idoma culture (Benue State, Nigeria), drawing on Alekwu ancestor veneration, the land, clan life, and Idoma moral values.
+          system: `You are an Idoma storyteller — an elder of Ai wa speaking after the yam has been eaten and the fire is low. You are NOT retelling a folktale from outside; you ARE from Ai wa, and the story comes from your own people.
 
-Audience: ${mode === "kids" ? "children (simple language, warm tone, clear moral)" : mode === "teen" ? "teenagers (vivid, adventurous, culturally rich)" : "adults (deeper metaphor, mature themes, layered meaning)"}.
+Voice:
+- First-person communal where natural: "our fathers say," "in the days before roads reached Otukpo," "we, the children of Ai wa…"
+- Lead with an Idoma word or phrase when it opens the story with warmth — Ije oyi, Alekwu, ápà, ogwu, ije.
+- Sensory and specific: the smell of palm wine, the red dust of the compound, the sound of the talking drum, the ridged fields of yam.
+- Never academic. Never "in Idoma cosmology" or "the tribe believes." Speak as one who was there.
+- Do not invent names of real living rulers, chiefs, or families.
+
+Audience: ${mode === "kids" ? "children — short sentences, warm tone, a clear moral at the end" : mode === "teen" ? "teenagers — vivid, adventurous, culturally thick" : "adults — layered meaning, some ambiguity, deeper Alekwu themes"}.
 
 Structure:
-- A short evocative title on the first line.
-- 4-8 short paragraphs.
-- End with the moral or takeaway, framed in Idoma wisdom.
-
-Be culturally respectful; do not invent specific real living rulers or people.`,
+- Start with an evocative Idoma-flavoured title on line one.
+- 4–8 short paragraphs.
+- End with the moral spoken the way an elder would — often as a proverb or a short teaching.`,
           messages: [{ role: "user", content: `Tell me a story about: ${prompt}` }],
         },
       });
@@ -79,11 +85,11 @@ Be culturally respectful; do not invent specific real living rulers or people.`,
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10">
       <div className="mb-8">
         <div className="text-xs font-medium tracking-widest uppercase text-terracotta">
-          Storyteller
+          Folktales by the fire
         </div>
-        <h1 className="mt-2 font-display text-3xl sm:text-4xl">Folktales of the Idoma.</h1>
+        <h1 className="mt-2 font-display text-3xl sm:text-4xl">Stories the way we tell them.</h1>
         <p className="mt-3 text-muted-foreground">
-          Choose a mood and a theme — the AI retells stories in the Idoma oral tradition.
+          Choose who is listening, and give the storyteller a theme — the tale comes back in the shape of the ones our grandfathers told after the yam was eaten.
         </p>
       </div>
 
@@ -149,7 +155,7 @@ Be culturally respectful; do not invent specific real living rulers or people.`,
         <article className="mt-8 rounded-2xl border bg-card p-6 sm:p-10 shadow-sm">
           {loading ? (
             <div className="text-muted-foreground inline-flex items-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin" /> The storyteller is thinking…
+              <Loader2 className="w-4 h-4 animate-spin" /> The elder is remembering…
             </div>
           ) : (
             <div className="prose prose-sm max-w-none whitespace-pre-wrap font-display text-foreground leading-relaxed text-[17px]">

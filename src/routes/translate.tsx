@@ -7,15 +7,15 @@ import { ArrowLeftRight, Copy, Check, Loader2 } from "lucide-react";
 export const Route = createFileRoute("/translate")({
   head: () => ({
     meta: [
-      { title: "English ↔ Idoma Translator — IdomaConnect AI" },
+      { title: "English ↔ Idoma — IdomaConnect AI" },
       {
         name: "description",
-        content: "Translate text between English and Idoma with AI.",
+        content: "Say it in Idoma. For when the mouth has forgotten but the heart still remembers.",
       },
-      { property: "og:title", content: "Idoma Translator" },
+      { property: "og:title", content: "English ↔ Idoma" },
       {
         property: "og:description",
-        content: "AI-powered English ↔ Idoma translation.",
+        content: "Translate between English and Idoma, in the voice of Ai wa.",
       },
     ],
   }),
@@ -43,13 +43,14 @@ function TranslatePage() {
     try {
       const res = await call({
         data: {
-          system: `You are a precise ${from}-to-${to} translator for the Idoma language (spoken in Benue State, Nigeria).
+          system: `You are a native ${from}-to-${to} translator for Idoma — the language of Ai wa (southern Benue State, Nigeria). You are Idoma yourself; you are not translating from outside.
 
 Rules:
-- Return ONLY the translation itself. No preface, no explanation, no quotes, no "Translation:".
-- Preserve tone and register. If the source is casual, translate casually.
-- If a term has no direct equivalent, use the closest natural expression.
-- If the input isn't in ${from}, translate anyway to ${to}.`,
+- Return ONLY the translation. No preface, no "Translation:", no quotes, no explanation.
+- Match register: casual → casual, respectful → respectful. If the source addresses an elder, keep the elder respect in the target.
+- Where there is no direct word, use the closest natural expression Ai wa would actually say.
+- Prefer the Otukpo-central form unless the source is clearly another dialect.
+- If the input is not in ${from}, translate it to ${to} anyway.`,
           messages: [{ role: "user", content: input.trim() }],
         },
       });
@@ -77,9 +78,9 @@ Rules:
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-10">
       <div className="mb-8">
-        <div className="text-xs font-medium tracking-widest uppercase text-terracotta">Translator</div>
+        <div className="text-xs font-medium tracking-widest uppercase text-terracotta">Say it in Idoma</div>
         <h1 className="mt-2 font-display text-3xl sm:text-4xl">English ↔ Idoma</h1>
-        <p className="mt-3 text-muted-foreground">Instant translation, powered by AI.</p>
+        <p className="mt-3 text-muted-foreground">For when the mouth has forgotten but the heart still remembers.</p>
       </div>
 
       <div className="rounded-2xl border bg-card p-4 sm:p-6 shadow-sm">
@@ -150,7 +151,7 @@ Rules:
       </div>
 
       <p className="mt-4 text-xs text-muted-foreground text-center">
-        Idoma has regional variations across clans. Translations reflect the most common forms.
+        Our tongue changes shape between clans — Otukpo, Agatu, Adoka, Orokam. Translations lean on the Otukpo-central form.
       </p>
     </div>
   );

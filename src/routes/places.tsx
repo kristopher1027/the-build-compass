@@ -5,15 +5,16 @@ import { MapPin } from "lucide-react";
 export const Route = createFileRoute("/places")({
   head: () => ({
     meta: [
-      { title: "Historical Places of Idomaland — IdomaConnect AI" },
+      { title: "Where we come from — IdomaConnect AI" },
       {
         name: "description",
-        content: "Explore sacred hills, ancient caves, palaces, and cultural landmarks of Idomaland.",
+        content:
+          "Otukpo, Ojira Hills, the Ogbadibo caves, the palace of Ọch'Idoma — the ground that carries our names, told from inside Ai wa.",
       },
-      { property: "og:title", content: "Historical Places of Idomaland" },
+      { property: "og:title", content: "Where we come from" },
       {
         property: "og:description",
-        content: "A curated guide to the historical and cultural sites of the Idoma people.",
+        content: "The sacred hills, caves, and palaces of Ai wa — in our own voice.",
       },
     ],
   }),
@@ -25,12 +26,13 @@ function PlacesPage() {
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
       <div className="mb-10">
         <div className="text-xs font-medium tracking-widest uppercase text-terracotta">
-          Historical Places
+          Where we come from
         </div>
-        <h1 className="mt-2 font-display text-3xl sm:text-4xl">Landmarks of Idomaland.</h1>
+        <h1 className="mt-2 font-display text-3xl sm:text-4xl">The ground that carries our names.</h1>
         <p className="mt-3 text-muted-foreground max-w-2xl">
-          The sacred hills, ancestral caves, palaces, and rivers that hold the memory
-          of the Idoma people.
+          Otukpo where the roads meet, Ojira where the ancestors walk, the
+          caves at Ogbadibo where our clan names were first spoken — this is
+          Ai wa, told by the people who still live it.
         </p>
       </div>
 
@@ -47,7 +49,7 @@ function PlacesPage() {
             <p className="mt-2 text-sm text-muted-foreground">{p.summary}</p>
             <div className="mt-4 pt-4 border-t">
               <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">
-                Significance
+                Why it matters to us
               </div>
               <p className="text-sm">{p.significance}</p>
             </div>

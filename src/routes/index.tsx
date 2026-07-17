@@ -19,50 +19,50 @@ const FEATURES = [
   {
     to: "/assistant",
     icon: MessageCircle,
-    title: "AI Cultural Assistant",
-    desc: "Ask anything about Idoma history, customs, rulers, and traditions.",
+    title: "Sit with an elder",
+    desc: "An AI that answers the way our fathers would — grounded in our own words, citing them back to you.",
     tint: "primary",
   },
   {
     to: "/tutor",
     icon: BookOpen,
-    title: "Language Tutor",
-    desc: "Learn Idoma phrases, greetings and vocabulary with interactive lessons.",
+    title: "Learn to speak Idoma",
+    desc: "Ije oyi, abo, nom̀ — one phrase at a time, the way our mothers taught us.",
     tint: "terracotta",
   },
   {
     to: "/translate",
     icon: Languages,
-    title: "AI Translator",
-    desc: "Translate between English and Idoma in a single tap.",
+    title: "English ↔ Idoma",
+    desc: "For when you know what you want to say but the tongue has forgotten.",
     tint: "gold",
   },
   {
     to: "/stories",
     icon: Sparkles,
-    title: "Storyteller",
-    desc: "Folktales and legends of the Idoma people, retold by AI.",
+    title: "Folktales by the fire",
+    desc: "Stories in the shape of the ones our grandfathers told after the yam was eaten.",
     tint: "primary",
   },
   {
     to: "/places",
     icon: MapPin,
-    title: "Historical Places",
-    desc: "Explore sacred sites, hills, and cultural landmarks of Idomaland.",
+    title: "Where we come from",
+    desc: "Otukpo, Ojira, Ogbadibo — the ground that carries our names.",
     tint: "terracotta",
   },
   {
     to: "/festivals",
     icon: Calendar,
-    title: "Festivals",
-    desc: "Learn about Aje-Alekwu, Eje-Alago, and other Idoma celebrations.",
+    title: "The year in Ai wa",
+    desc: "Aje-Alekwu, Eje-Alago, Ito Ogwu — the days we come together.",
     tint: "gold",
   },
   {
     to: "/businesses",
     icon: Store,
-    title: "Local Directory",
-    desc: "Discover hotels, restaurants, and artisans across Idomaland.",
+    title: "Hands holding it up",
+    desc: "The tailors, cooks, and traders keeping Ai wa alive today.",
     tint: "primary",
   },
 ] as const;
@@ -82,7 +82,7 @@ function Index() {
         <div className="absolute inset-0 -z-10">
           <img
             src={heroImg}
-            alt="Sunset over the savanna hills of Idomaland"
+            alt="Sunset over the savanna hills of Ai wa — our home"
             width={1600}
             height={1000}
             className="w-full h-full object-cover"
@@ -94,30 +94,31 @@ function Index() {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-medium text-terracotta">
               <span className="w-1.5 h-1.5 rounded-full bg-terracotta" />
-              Idoma heritage · AI-powered
+              Ai wa · from Apa to today
             </div>
             <h1 className="mt-5 font-display text-4xl sm:text-6xl font-semibold leading-[1.05] tracking-tight">
-              The living archive of{" "}
-              <span className="text-primary">Idoma culture</span>,{" "}
-              language and heritage.
+              Ije oyi.{" "}
+              <span className="text-primary">Ai wa</span> — our home, our
+              tongue, our people.
             </h1>
             <p className="mt-5 text-lg text-foreground/80 max-w-xl">
-              Learn the Idoma language. Chat with an AI grounded in Idoma history.
-              Explore sacred places, festivals, and the businesses that keep the
-              culture alive today.
+              Built by sons and daughters of Ai wa, for anyone who wants to
+              learn Idoma the way it is actually spoken, hear our stories the
+              way they are actually told, and walk our land the way we walk
+              it. No outsider summaries. Just us.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/assistant"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition"
               >
-                Chat with the assistant <ArrowRight className="w-4 h-4" />
+                Sit with an elder <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/tutor"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-3 text-sm font-medium hover:bg-secondary transition"
               >
-                Start learning Idoma
+                Start speaking Idoma
               </Link>
             </div>
           </div>
@@ -128,16 +129,16 @@ function Index() {
       <section className="border-y bg-secondary/30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-6 sm:grid-cols-3 text-sm">
           <div>
-            <div className="font-display text-2xl text-primary">1M+</div>
-            <div className="text-muted-foreground">Idoma speakers across Nigeria and the diaspora</div>
+            <div className="font-display text-2xl text-primary">wa lù Apa</div>
+            <div className="text-muted-foreground">"We come from Apa" — the sentence every Idoma child hears growing up</div>
           </div>
           <div>
-            <div className="font-display text-2xl text-terracotta">22+</div>
-            <div className="text-muted-foreground">Clans, each with distinct traditions and customs</div>
+            <div className="font-display text-2xl text-terracotta">9 LGAs</div>
+            <div className="text-muted-foreground">Otukpo, Ohimini, Okpokwu, Ogbadibo, Ado, Apa, Agatu, Obi, Oju</div>
           </div>
           <div>
-            <div className="font-display text-2xl text-gold-foreground">1 goal</div>
-            <div className="text-muted-foreground">Ensure the next generation inherits its heritage</div>
+            <div className="font-display text-2xl text-gold-foreground">Ai wa</div>
+            <div className="text-muted-foreground">"Our home" — the word we use for the whole of Idomaland</div>
           </div>
         </div>
       </section>
@@ -146,12 +147,13 @@ function Index() {
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-20">
         <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
           <div>
-            <div className="text-xs font-medium tracking-widest uppercase text-terracotta">Explore</div>
-            <h2 className="mt-2 font-display text-3xl sm:text-4xl">Everything Idoma, in one place.</h2>
+            <div className="text-xs font-medium tracking-widest uppercase text-terracotta">Wa gwu — come in</div>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl">Everything of Ai wa, in one place.</h2>
           </div>
           <p className="max-w-md text-sm text-muted-foreground">
-            Seven working modules — powered by an AI trained to answer with cultural
-            care and grounded curated knowledge.
+            Seven doors — every one of them opening onto something an elder of
+            ours would recognise. The AI here reads from a corpus written from
+            inside the culture, not scraped from outside it.
           </p>
         </div>
 
@@ -182,25 +184,25 @@ function Index() {
         <div className="relative overflow-hidden rounded-3xl bg-primary text-primary-foreground p-10 sm:p-14 pattern-idoma">
           <div className="relative max-w-2xl">
             <h2 className="font-display text-3xl sm:text-4xl">
-              Ije oyi — welcome home.
+              Ije oyi — you have arrived well.
             </h2>
             <p className="mt-4 text-primary-foreground/85">
-              Whether you speak Idoma fluently or are just beginning, IdomaConnect
-              AI is your companion — a curated cultural archive that answers with
-              respect for the people, the land, and the ancestors.
+              Whether Idoma is the first tongue you cried in, or a language
+              you are meeting for the first time — wa gwu, come in. This is
+              our house. Sit. Eat. Ask.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/translate"
                 className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-medium text-gold-foreground hover:bg-gold/90 transition"
               >
-                Try the translator
+                Say it in Idoma
               </Link>
               <Link
                 to="/places"
                 className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 px-5 py-3 text-sm font-medium hover:bg-primary-foreground/10 transition"
               >
-                Explore historical places
+                Walk our land
               </Link>
             </div>
           </div>

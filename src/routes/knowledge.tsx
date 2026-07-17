@@ -6,17 +6,16 @@ import { BookOpen, Search, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/knowledge")({
   head: () => ({
     meta: [
-      { title: "Verified Idoma Knowledge Base — IdomaConnect AI" },
+      { title: "What we ourselves say — IdomaConnect AI" },
       {
         name: "description",
         content:
-          "A curated, verified library of Idoma history, rulers, clans, festivals, proverbs, greetings, and cultural practices — the corpus our AI consults before it answers.",
+          "The verified corpus of Ai wa — our history, rulers, clans, festivals, proverbs and greetings, written from inside the culture. The library the AI reads before it answers.",
       },
-      { property: "og:title", content: "Verified Idoma Knowledge Base" },
+      { property: "og:title", content: "What we ourselves say — Ai wa" },
       {
         property: "og:description",
-        content:
-          "The curated Idoma corpus our AI cites — history, rulers, clans, festivals, and cultural practices.",
+        content: "The Idoma corpus our AI cites — in our own voice.",
       },
     ],
   }),
@@ -41,16 +40,16 @@ function KnowledgePage() {
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
       <div className="mb-8">
         <div className="text-xs font-medium tracking-widest uppercase text-terracotta inline-flex items-center gap-2">
-          <BookOpen className="w-3.5 h-3.5" /> Verified Knowledge Base
+          <BookOpen className="w-3.5 h-3.5" /> What we ourselves say
         </div>
         <h1 className="mt-2 font-display text-3xl sm:text-4xl">
-          The corpus behind the AI.
+          The words of Ai wa, in our own voice.
         </h1>
         <p className="mt-3 text-muted-foreground max-w-2xl">
-          A hand-curated library of Idoma history, rulers, clans, festivals,
-          proverbs, greetings, and cultural practices. The Cultural Assistant
-          consults these entries before answering and cites them by name — so
-          you can trust the source, not just the model.
+          A library written from inside the culture — the way our fathers
+          would tell it, not the way a stranger would summarise it. The AI on
+          this site reads these entries first and cites them back to you, so
+          you know the answer came from us.
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -58,10 +57,10 @@ function KnowledgePage() {
             to="/assistant"
             className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            <Sparkles className="w-4 h-4" /> Ask the grounded AI
+            <Sparkles className="w-4 h-4" /> Ask, grounded in this
           </Link>
           <span className="text-xs text-muted-foreground">
-            {KNOWLEDGE.length} verified entries across {KNOWLEDGE_CATEGORIES.length} categories
+            {KNOWLEDGE.length} entries · {KNOWLEDGE_CATEGORIES.length} categories · all in our voice
           </span>
         </div>
       </div>
@@ -72,7 +71,7 @@ function KnowledgePage() {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search the corpus (e.g. Alekwu, Otukpo, proverb)…"
+            placeholder="Search Ai wa (Alekwu, ápà, Otukpo, ije…)"
             className="w-full rounded-full border bg-background pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
@@ -95,7 +94,7 @@ function KnowledgePage() {
 
       {filtered.length === 0 ? (
         <div className="text-center py-16 text-sm text-muted-foreground">
-          No entries match that search.
+          Nothing under that name yet. Ask an elder — or try another word.
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
