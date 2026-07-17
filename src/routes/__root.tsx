@@ -88,17 +88,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "IdomaConnect AI — Preserving Idoma culture, language & heritage" },
+      { title: "IdomaConnect AI — Ai wa, in our own voice" },
       {
         name: "description",
         content:
-          "An AI-powered platform to learn the Idoma language, explore culture and history, translate, and discover Idomaland's places, festivals, and local businesses.",
+          "Built by sons and daughters of Ai wa. Learn Idoma, hear our stories, walk our land, and ask an AI that speaks the way we speak at home — not the way strangers summarise us.",
       },
-      { property: "og:title", content: "IdomaConnect AI" },
+      { property: "og:title", content: "IdomaConnect AI — Ai wa" },
       {
         property: "og:description",
         content:
-          "Preserving and promoting Idoma culture with AI — language, translation, history, tourism, and local business.",
+          "Idoma culture, language, and heritage — told from inside the culture, cited from our own words.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -190,32 +190,33 @@ function SiteChrome({ children }: { children: ReactNode }) {
           <div>
             <div className="font-display text-lg font-semibold">IdomaConnect AI</div>
             <p className="mt-2 text-sm text-muted-foreground max-w-xs">
-              Preserving Idoma language, culture, and heritage — for students,
-              tourists, researchers, and the diaspora.
+              Ai wa — our home, our tongue, our people. Built from inside the
+              culture, for anyone who wants to know us the way we know ourselves.
             </p>
           </div>
           <div>
             <div className="text-sm font-semibold mb-2">Learn</div>
             <ul className="space-y-1 text-sm text-muted-foreground">
-              <li><Link to="/assistant" className="hover:text-foreground">Cultural Assistant</Link></li>
-              <li><Link to="/tutor" className="hover:text-foreground">Language Tutor</Link></li>
-              <li><Link to="/translate" className="hover:text-foreground">Translator</Link></li>
-              <li><Link to="/stories" className="hover:text-foreground">Storyteller</Link></li>
+              <li><Link to="/assistant" className="hover:text-foreground">Sit with an elder</Link></li>
+              <li><Link to="/tutor" className="hover:text-foreground">Speak Idoma</Link></li>
+              <li><Link to="/translate" className="hover:text-foreground">English ↔ Idoma</Link></li>
+              <li><Link to="/stories" className="hover:text-foreground">Folktales</Link></li>
             </ul>
           </div>
           <div>
-            <div className="text-sm font-semibold mb-2">Discover</div>
+            <div className="text-sm font-semibold mb-2">Ai wa</div>
             <ul className="space-y-1 text-sm text-muted-foreground">
-              <li><Link to="/places" className="hover:text-foreground">Historical Places</Link></li>
-              <li><Link to="/festivals" className="hover:text-foreground">Festivals</Link></li>
-              <li><Link to="/businesses" className="hover:text-foreground">Local Businesses</Link></li>
+              <li><Link to="/places" className="hover:text-foreground">Where we come from</Link></li>
+              <li><Link to="/festivals" className="hover:text-foreground">The year in Ai wa</Link></li>
+              <li><Link to="/businesses" className="hover:text-foreground">Hands holding it up</Link></li>
+              <li><Link to="/knowledge" className="hover:text-foreground">What we ourselves say</Link></li>
             </ul>
           </div>
         </div>
         <div className="border-t">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 text-xs text-muted-foreground flex flex-wrap justify-between gap-2">
-            <span>© {new Date().getFullYear()} IdomaConnect AI. Built with cultural care.</span>
-            <span>Ije oyi — welcome home.</span>
+            <span>© {new Date().getFullYear()} IdomaConnect AI · Ai wa, in our own voice.</span>
+            <span>Ije oyi — you have arrived well.</span>
           </div>
         </div>
       </footer>

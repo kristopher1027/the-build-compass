@@ -6,15 +6,15 @@ import { useState, useMemo } from "react";
 export const Route = createFileRoute("/businesses")({
   head: () => ({
     meta: [
-      { title: "Local Business Directory — IdomaConnect AI" },
+      { title: "Hands holding it up — IdomaConnect AI" },
       {
         name: "description",
-        content: "Hotels, restaurants, artisans, tailors, and services across Idomaland.",
+        content: "Tailors, cooks, artisans, and traders across Ai wa — the sons and daughters keeping our culture alive today.",
       },
-      { property: "og:title", content: "Idomaland Business Directory" },
+      { property: "og:title", content: "Hands holding it up — Ai wa today" },
       {
         property: "og:description",
-        content: "Discover businesses that keep Idoma culture and economy alive.",
+        content: "The businesses of the Idoma nation, from inside the culture.",
       },
     ],
   }),
@@ -34,12 +34,13 @@ function BusinessesPage() {
     <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
       <div className="mb-8">
         <div className="text-xs font-medium tracking-widest uppercase text-terracotta">
-          Local Directory
+          Sons and daughters of the soil
         </div>
-        <h1 className="mt-2 font-display text-3xl sm:text-4xl">Businesses across Idomaland.</h1>
+        <h1 className="mt-2 font-display text-3xl sm:text-4xl">The hands holding it up today.</h1>
         <p className="mt-3 text-muted-foreground max-w-2xl">
-          Discover the artisans, restaurants, tailors, and services that make up the
-          modern Idoma economy.
+          The tailors cutting ápà, the women stringing our coral, the cooks
+          who still know okoho — Ai wa is not only in the past. Here are the
+          people keeping it alive right now.
         </p>
       </div>
 
