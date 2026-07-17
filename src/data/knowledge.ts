@@ -17,148 +17,151 @@ export type KnowledgeEntry = {
   tags?: string[];
 };
 
+// Voice note: these entries are written from inside Ai wa — first-person
+// communal ("we," "our fathers," "Ai wa"), leading with the Idoma word,
+// and preferring lived detail over dictionary summary.
 export const KNOWLEDGE: KnowledgeEntry[] = [
   // ---------- History ----------
   {
     id: "origin-apa",
-    title: "Idoma origins and the Apa migration",
+    title: "Apa — where we came from",
     category: "History",
     content:
-      "Idoma oral tradition traces the people's origins to Apa, an ancient Kwararafa/Jukun-related polity in the middle Benue valley. Following the collapse of Apa around the 17th–18th centuries, groups migrated southward and settled across what is now southern Benue State, forming the clans that make up modern Idomaland.",
-    tags: ["apa", "kwararafa", "migration", "jukun", "origins"],
+      "Our fathers say we came from Apa, a great kingdom that once stood in the middle Benue valley — kin to the Jukun and Kwararafa. When Apa fell, the clans scattered south, following the rivers, and settled the land we now call Ai wa (our home). Every Idoma child, no matter the clan, will hear at some point: 'wa lù Apa' — 'we come from Apa.'",
+    tags: ["apa", "kwararafa", "migration", "jukun", "origins", "ai wa"],
   },
   {
     id: "colonial-era",
-    title: "Colonial contact and administrative reorganization",
+    title: "When the British came",
     category: "History",
     content:
-      "British colonial administration reached Idomaland in the early 20th century, grouping the clans under the Idoma Native Authority in 1927 with headquarters at Otukpo. This laid the groundwork for the unified Idoma identity and the creation of the paramount stool of the Och'Idoma in 1948.",
+      "The white men reached our clans in the early 1900s. In 1927 they bundled us under one 'Idoma Native Authority' with the headquarters at Otukpo — that was the first time all our clans answered to one desk. It was not our idea, but it is what allowed us, twenty years later in 1948, to raise up one stool: the Ọch'Idoma.",
     tags: ["colonial", "1927", "1948", "native authority", "otukpo"],
   },
   {
     id: "benue-state",
-    title: "Idoma within Benue State",
+    title: "Ai wa inside Benue",
     category: "History",
     content:
-      "Benue State was created on 3 February 1976. The Idoma occupy the southern zone of the state (Zone C), while the Tiv occupy the northern and central zones. Idomaland spans roughly nine local government areas.",
+      "Benue State was carved out on the 3rd of February, 1976. We — the Idoma — sit in the south, what the state calls Zone C; our Tiv brothers hold the north and centre. When people talk of 'southern Benue,' they are talking of us: roughly nine local governments, one language with many dialects, one people.",
     tags: ["benue", "1976", "zone c", "tiv"],
   },
 
   // ---------- Rulers ----------
   {
     id: "och-idoma",
-    title: "The Och'Idoma — paramount ruler",
+    title: "Ọch'Idoma — the one stool of Ai wa",
     category: "Rulers",
     content:
-      "The Och'Idoma is the paramount traditional ruler of the Idoma nation, seated at the palace in Otukpo. The stool was established in 1948 to unify the clans. Notable holders include Ogiri Oko (the first, 1948–1960), Ajene Okpabi, Abraham Ajene Okpabi, Elias Ikoyi Obekpa, and Agabaidu Elaigwu Odogbo John. As of recent installations the reigning Och'Idoma is Agabaidu Prof. John Elaigwu Odogbo.",
+      "The Ọch'Idoma is our paramount father, seated at Otukpo. We raised the stool in 1948 so the clans could speak with one mouth. The first was Ogiri Oko (1948–1960); after him came Ajene Okpabi, Abraham Ajene Okpabi, Elias Ikoyi Obekpa, and today Agabaidu Prof. John Elaigwu Odogbo sits on it. We call him Agabaidu — 'the great one.'",
     tags: ["och'idoma", "ochidoma", "paramount", "otukpo", "agabaidu"],
   },
   {
     id: "clan-chiefs",
-    title: "Clan-level traditional rulers",
+    title: "Ọch'Ai — the chief of each clan",
     category: "Rulers",
     content:
-      "Each Idoma clan has its own traditional ruler, referred to variously as Och'Ai (chief of a district) or by clan-specific titles such as Ad'Ojira, Och'Otukpo, Och'Ugbokolo, Och'Igumale, and others. These chiefs form the Idoma Traditional Council under the Och'Idoma.",
+      "Before the Ọch'Idoma, we already had our own — Ọch'Otukpo, Ọch'Ugbokolo, Ọch'Igumale, Ad'Ojira, and so on, one for each clan. These are the men who sit in council under the Ọch'Idoma. When a chief speaks in his own clan, his word is enough; when the whole of Ai wa must decide, they gather at Otukpo.",
     tags: ["och'ai", "council", "clan chief"],
   },
 
   // ---------- Clans ----------
   {
     id: "clan-list",
-    title: "Major Idoma clans",
+    title: "The clans of Ai wa",
     category: "Clans",
     content:
-      "The Idoma people are organised into clans (Ai). Major clans include Otukpo (Otukpa), Adoka, Igumale, Ugbokolo, Orokam, Ochekwu, Ai-Ono, Edumoga, Ejigbo, Ito, Igede-related border clans, Agatu, and Apa. Each clan has its own dialect variations, festivals, and ancestral shrines.",
+      "We are one people, but we are many clans (Ai). The big names you will hear are Otukpo, Adoka, Igumale, Ugbokolo, Orokam, Ochekwu, Ai-Ono, Edumoga, Ejigbo, Ito, Agatu, and Apa. Each clan has its own way of speaking Idoma — you can tell an Agatu man from an Orokam man the moment either opens his mouth — and each has its own shrine, its own festival dates, its own founder story.",
     tags: ["clans", "ai", "otukpo", "adoka", "igumale", "orokam", "agatu"],
   },
   {
     id: "clan-agatu",
-    title: "Agatu clan",
+    title: "Agatu — our people by the river",
     category: "Clans",
     content:
-      "The Agatu occupy the northwestern edge of Idomaland along the River Benue. They are known for river-fishing traditions, rice farming, and a distinct dialect of Idoma. Agatu LGA has its headquarters at Obagaji.",
+      "The Agatu sit at the top edge of Ai wa, where the Benue river bends. They are our fishermen and rice farmers; their dialect drops sharper on the ear than ours further south. Their headquarters is Obagaji. When there is trouble on the river, it is Agatu voices we hear first.",
     tags: ["agatu", "obagaji", "river benue"],
   },
 
   // ---------- LGAs ----------
   {
     id: "lgas",
-    title: "Idoma local government areas",
+    title: "The nine local governments of Ai wa",
     category: "LGAs",
     content:
-      "The Idoma-speaking LGAs of Benue State are: Otukpo, Ohimini, Okpokwu, Ogbadibo, Ado, Apa, Agatu, Obi, and parts of Oju/Ohinini. Otukpo is the cultural and administrative headquarters and the largest urban area.",
+      "On paper, Ai wa is Otukpo, Ohimini, Okpokwu, Ogbadibo, Ado, Apa, Agatu, Obi, and parts of Oju. Otukpo is the head — where the palace sits and where all roads meet. The others each carry their own clan character; ask any of us where we're 'from' and we'll name our LGA before our state.",
     tags: ["lga", "otukpo", "ohimini", "okpokwu", "ogbadibo", "ado", "apa", "agatu", "obi"],
   },
 
   // ---------- Festivals ----------
   {
     id: "aje-alekwu",
-    title: "Aje-Alekwu festival",
+    title: "Aje-Alekwu — the night the ancestors come",
     category: "Festivals",
     content:
-      "Aje-Alekwu is the ancestral veneration festival honouring Alekwu — the collective spirit of departed ancestors. Held annually in the dry season, it features masquerade performances, drumming, offerings of yam and palm wine, and communal feasting. It reinforces intergenerational moral order.",
+      "Once a year, in the dry season, we call our dead home. The compound is swept, palm wine is set on the shrine, and by night the masquerades — Alekwu wearing cloth — enter the square. The drums drop low. Children go quiet. In the morning we eat from one pot: it is one of the few days the whole clan is truly one household.",
     tags: ["alekwu", "ancestors", "masquerade", "aje"],
   },
   {
     id: "eje-alago",
-    title: "Eje-Alago post-harvest festival",
+    title: "Eje-Alago — thanking the yam",
     category: "Festivals",
     content:
-      "Eje-Alago is a thanksgiving festival celebrated after the main harvest. Communities gather for wrestling contests (ije), traditional dances, and the sharing of new crops. Young men compete for honour on behalf of their villages.",
+      "After the main harvest, we do not just celebrate — we thank. The young men wrestle (ije) for the honour of their village, the girls dance in red and black, and the head of every household carries the first heap of yams to the compound shrine before anyone eats.",
     tags: ["eje", "harvest", "wrestling", "ije"],
   },
   {
     id: "ito-ogwu",
-    title: "Ito Ogwu — new yam festival",
+    title: "Ito Ogwu — the new yam",
     category: "Festivals",
     content:
-      "Ito Ogwu marks the ritual eating of new yams. Yam (ogwu) is central to Idoma cosmology as a symbol of prosperity, and no one traditionally eats the new yam before this festival is performed. Timing varies by clan.",
+      "Yam (ogwu) is our prestige crop; no man calls himself a farmer if he does not grow yam. Ito Ogwu is the day the first new yam is eaten. The Ọch' of the clan tastes first, then the elders, then the households. Anyone who eats new yam before Ito Ogwu is done is said to be inviting hunger.",
     tags: ["ito ogwu", "new yam", "ogwu", "harvest"],
   },
 
   // ---------- Proverbs ----------
   {
     id: "proverb-elephant",
-    title: "Proverb: unity",
+    title: "Owo ọ̀nyi ka owo ọ̀nyi — 'one hand and one hand'",
     category: "Proverbs",
     content:
-      "\"Onyi na onyi ka wa ta enya\" — 'One person and one person make two.' Used to teach that cooperation and unity multiply strength.",
+      "'One hand and one hand make a load.' Ai wa uses this whenever cooperation is needed — carrying a yam heap, raising a child, settling a matter. No one carries alone.",
     tags: ["proverb", "unity"],
   },
   {
     id: "proverb-patience",
-    title: "Proverb: patience",
+    title: "Owo ka i chogba — 'the hand that is not in a hurry'",
     category: "Proverbs",
     content:
-      "\"Owo ka i chogba, i ga leyi kpai\" — 'The hand that does not hurry will eat well.' A teaching on patience and deliberate action.",
+      "'The hand that is not in a hurry will eat well.' A word our fathers give young men who want everything at once. Patience feeds; hurry drops the yam.",
     tags: ["proverb", "patience"],
   },
 
   // ---------- Greetings ----------
   {
     id: "greetings-basic",
-    title: "Common Idoma greetings",
+    title: "How Ai wa greets",
     category: "Greetings",
     content:
-      "Ije oyi — 'Welcome' (literally, 'you have arrived well'). Abo — 'Hello / greetings'. Nom̀ — 'Thank you'. Ada nwu? — 'How are you?'. Idoma greetings emphasise arrival, well-being, and respect for elders.",
+      "Ije oyi — 'you have arrived well,' the closest thing we have to 'welcome home.' Abo — hello. Nom̀ — thank you. Ada nwu? — 'how are you?' We greet arrival before we greet anything else; to enter a compound without saying Ije oyi is to enter a stranger.",
     tags: ["greeting", "hello", "welcome", "thank you", "ije oyi", "abo"],
   },
   {
     id: "greetings-elders",
-    title: "Addressing elders",
+    title: "How we greet our elders",
     category: "Greetings",
     content:
-      "Elders are addressed with respect prefixes: Ada (father/senior man), Ene (mother/senior woman). Younger people bow slightly and use both hands when receiving items from an elder.",
+      "To an older man we say Ada; to an older woman, Ene. A younger person bows slightly, uses both hands to receive anything from an elder, and never calls an elder by their first name alone. If you fail this in Ai wa, someone's mother will correct you before your own.",
     tags: ["elder", "ada", "ene", "respect"],
   },
 
   // ---------- Tourist Sites ----------
   {
     id: "otukpo-town",
-    title: "Otukpo — cultural capital",
+    title: "Otukpo — where the roads end",
     category: "Tourist Sites",
     content:
-      "Otukpo is the cultural heart of Idomaland and hosts the palace of the Och'Idoma. It is the largest Idoma urban centre and the site of major cultural gatherings and the annual Idoma Day.",
+      "Otukpo is the cultural head of Ai wa. The Ọch'Idoma's palace is here; Idoma Day is celebrated here; and when a son of Ai wa wants to marry, it is often at Otukpo the two families meet. It is our largest town and our meeting point.",
     tags: ["otukpo", "palace", "capital"],
   },
   {
@@ -166,7 +169,7 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
     title: "Ojira Hills",
     category: "Tourist Sites",
     content:
-      "Rolling savanna hills in Ohimini LGA dotted with ancestral shrines and traditional farmsteads. Considered a spiritual landscape.",
+      "Low green hills in Ohimini where our grandmothers still farm yam ridges. Old shrines sit among the rocks. Elders take newborns up at dawn to be 'shown' to Alekwu.",
     tags: ["ojira", "hills", "ohimini"],
   },
   {
@@ -174,49 +177,49 @@ export const KNOWLEDGE: KnowledgeEntry[] = [
     title: "Ogbadibo Caves",
     category: "Tourist Sites",
     content:
-      "Ancient sandstone caves in Ogbadibo LGA said to have sheltered ancestors during migrations. Referenced in the oral history of several clans.",
+      "Sandstone caves in Ogbadibo. Our fathers say Ai wa hid here during the wars from the north, and that some of our clan names were first spoken inside them.",
     tags: ["caves", "ogbadibo", "migration"],
   },
 
   // ---------- Cultural Practices ----------
   {
     id: "alekwu",
-    title: "Alekwu — ancestor veneration",
+    title: "Alekwu — our ancestors, still present",
     category: "Cultural Practices",
     content:
-      "Alekwu is the collective spirit of Idoma ancestors and the central pillar of traditional Idoma spirituality. Alekwu is invoked at family shrines, moral disputes, and community festivals; masquerades represent Alekwu's presence among the living.",
+      "Alekwu is not a god and not a ghost — Alekwu is our departed, gathered. They watch. They correct. They are called on at family shrines, at every serious matter, at every festival. When a masquerade dances in the square, that is Alekwu wearing cloth so we can see. To lie in front of Alekwu is to invite sickness on your own head.",
     tags: ["alekwu", "ancestors", "religion", "masquerade"],
   },
   {
     id: "marriage",
-    title: "Traditional marriage",
+    title: "How we marry in Ai wa",
     category: "Cultural Practices",
     content:
-      "Idoma marriage involves several stages: introduction (ilo ọ́la), bride-price negotiation between family elders, presentation of drinks and kola, and the wedding proper with dancing and gift-giving. Both extended families are heavily involved.",
+      "Marriage is not two people; it is two families. First, ilo ọ́la — the introduction, where the young man's people come to knock. Then the elders sit and settle bride-price (never rushed; always with palm wine and kola). Then the wedding, with dancing in ápà and gifts flowing between the two households. If either family is unwilling, no marriage happens — no matter what the two young people want.",
     tags: ["marriage", "bride price", "wedding", "kola"],
   },
   {
     id: "foods",
-    title: "Idoma foods",
+    title: "What we eat",
     category: "Cultural Practices",
     content:
-      "Signature Idoma dishes include okoho soup (a stretchy vegetable soup made from okoho bark), pounded yam (utaba), oka (maize-based dough), egwusi soup, bushmeat stews, and palm wine (oyi). Yam remains the prestige crop.",
+      "Okoho soup — the stretchy soup made from okoho bark, eaten with pounded yam (utaba). That is the taste of home. Oka (maize dough), egwusi soup, bushmeat stews when the hunt is good, and palm wine (oyi) tapped fresh from the tree. Yam is king; no serious meal is served without it. When our diaspora children come home, it is okoho and utaba they ask for at the door.",
     tags: ["food", "okoho", "pounded yam", "utaba", "oka", "palm wine"],
   },
   {
     id: "dress",
-    title: "Traditional dress",
+    title: "Ápà — our red and black cloth",
     category: "Cultural Practices",
     content:
-      "The iconic Idoma cloth is a red-and-black woven fabric (ápà) worn wrapped around the waist for men and as a full garment for women during ceremonies. Coral beads and cowrie ornaments accompany chieftaincy attire.",
+      "Ápà is the woven red-and-black cloth every Idoma person knows on sight. Men wrap it around the waist and over one shoulder; women wear it as a full wrapper. Coral beads at the neck, cowries at the wrist. The wedding cut, the burial cut, and the everyday cut are not the same — our tailors will tell you off if you order the wrong one.",
     tags: ["dress", "cloth", "red and black", "apa", "beads"],
   },
   {
     id: "language",
-    title: "Idoma language",
+    title: "Our language",
     category: "Cultural Practices",
     content:
-      "Idoma is a Volta–Niger (Idomoid) language of the Benue–Congo family, spoken by roughly 3–4 million people. It is tonal, with three tones (high, mid, low). Major dialects include Otukpo, Adoka, Agatu, Igumale, and Orokam.",
+      "Idoma is a tonal language — the same syllable can mean three different things depending on how you drop your voice. About 3 to 4 million of us speak it, across every clan of Ai wa. The Otukpo dialect is the one most people learn first, but Agatu, Adoka, Igumale, and Orokam each have their own tune. We say: if you cannot greet in Idoma, you cannot claim Idoma.",
     tags: ["language", "tonal", "idomoid", "benue-congo", "dialect"],
   },
 ];
@@ -233,7 +236,6 @@ export function retrieveKnowledge(query: string, k = 4): KnowledgeEntry[] {
     let score = 0;
     for (const t of tokens) {
       if (hay.includes(t)) score += 1;
-      // Title/tag matches count extra.
       if (entry.title.toLowerCase().includes(t)) score += 1;
       if ((entry.tags ?? []).some((tag) => tag.includes(t))) score += 1;
     }
