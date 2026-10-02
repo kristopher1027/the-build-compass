@@ -75,7 +75,7 @@ function AuthPage() {
           {message && <p role="status" className="rounded-md border border-primary/25 bg-primary/10 p-3 text-sm text-primary">{message}</p>}
           <Button className="w-full" size="lg" disabled={busy}>{busy && <Loader2 className="animate-spin" />}{mode === "signin" ? "Sign in" : "Create account"}</Button>
           <div className="flex items-center justify-between gap-3 text-sm">
-            <button type="button" className="text-primary hover:underline" onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setError(""); setMessage(""); }}>{mode === "signin" ? "Create an account" : "I already have an account"}</button>
+            <Button type="button" variant="link" className="h-auto p-0" onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setError(""); setMessage(""); }}>{mode === "signin" ? "Create an account" : "I already have an account"}</Button>
             {mode === "signin" && <Link to="/forgot-password" className="text-muted-foreground hover:text-foreground">Forgot password?</Link>}
           </div>
         </form>

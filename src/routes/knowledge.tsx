@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from "@/data/knowledge";
 import { getPublishedKnowledge } from "@/lib/knowledge.functions";
 import { BookOpen, Search, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const knowledgeQuery = queryOptions({ queryKey: ["published-knowledge"], queryFn: () => getPublishedKnowledge() });
 
@@ -85,17 +86,15 @@ function KnowledgePage() {
         </div>
         <div className="flex flex-wrap gap-1.5">
           {(["All", ...KNOWLEDGE_CATEGORIES] as const).map((c) => (
-            <button
+            <Button
+              variant={cat === c ? "default" : "secondary"}
+              size="sm"
               key={c}
               onClick={() => setCat(c as KnowledgeCategory | "All")}
-              className={`px-3 py-1.5 rounded-full text-xs border transition ${
-                cat === c
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-secondary text-secondary-foreground border-transparent hover:bg-accent hover:text-accent-foreground"
-              }`}
+              className="rounded-full"
             >
               {c}
-            </button>
+            </Button>
           ))}
         </div>
       </div>

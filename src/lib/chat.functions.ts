@@ -47,7 +47,15 @@ export const chatComplete = createServerFn({ method: "POST" })
         const publishableKey = process.env["SUPABASE_PUBLISHABLE_KEY"];
         let entries: KnowledgeEntry[] = [];
         if (url && publishableKey) {
-          const client = createClient<Database>(url, publishableKey, { auth: { persistSession: false, autoRefreshToken: false } });
+          const client = createClient<Database>(url, publishableKey, {
+            auth: { persistSession: false, autoRefreshToken: false },
+            global: { fetch: (input, init) => {
+              const headers = new Headers(init?.headers);
+              if (publishableKey.startsWith("sb_") && headers.get("Authorization") === `Bearer ${publishableKey}`) headers.delete("Authorization");
+              headers.set("apikey", publishableKey);
+              return fetch(input, { ...init, headers });
+            } },
+          });
           const { data: rows } = await client.from("knowledge_entries").select("id,title,category,content,tags").eq("is_published", true);
           entries = (rows ?? []) as KnowledgeEntry[];
         }

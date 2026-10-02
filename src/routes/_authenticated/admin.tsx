@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { BookOpen, Edit3, LogOut, Plus, Search, ShieldAlert, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from "@/data/knowledge";
@@ -30,6 +31,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
 
 function AdminPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { user } = Route.useRouteContext();
   const [entries, setEntries] = useState<KnowledgeRow[]>([]);
   const [allowed, setAllowed] = useState<boolean | null>(null);
@@ -86,6 +88,8 @@ function AdminPage() {
   }
 
   async function signOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
     await supabase.auth.signOut();
     await navigate({ to: "/auth", replace: true });
   }

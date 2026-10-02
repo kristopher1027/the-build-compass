@@ -49,12 +49,13 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
+  const safeError = error instanceof Error ? error : new Error("Unknown application error");
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
+    reportLovableError(safeError, { boundary: "tanstack_root_error_component" });
+  }, [safeError]);
 
   return (
     <SiteChrome>
@@ -139,6 +140,7 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function SiteChrome({ children }: { children: ReactNode }) {
+  const router = useRouter();
   const [signedIn, setSignedIn] = useState(false);
   useEffect(() => {
     let active = true;
@@ -146,9 +148,10 @@ function SiteChrome({ children }: { children: ReactNode }) {
     const { data } = supabase.auth.onAuthStateChange((event) => {
       if (event === "SIGNED_IN" || event === "USER_UPDATED") setSignedIn(true);
       if (event === "SIGNED_OUT") setSignedIn(false);
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") void router.invalidate();
     });
     return () => { active = false; data.subscription.unsubscribe(); };
-  }, []);
+  }, [router]);
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
