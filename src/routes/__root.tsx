@@ -8,6 +8,10 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { useState } from "react";
+import { LogIn, Settings } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -45,12 +49,13 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
+  const safeError = error instanceof Error ? error : new Error("Unknown application error");
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
+    reportLovableError(safeError, { boundary: "tanstack_root_error_component" });
+  }, [safeError]);
 
   return (
     <SiteChrome>
@@ -135,6 +140,18 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function SiteChrome({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void supabase.auth.getUser().then(({ data }) => { if (active) setSignedIn(Boolean(data.user)); });
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN" || event === "USER_UPDATED") setSignedIn(true);
+      if (event === "SIGNED_OUT") setSignedIn(false);
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") void router.invalidate();
+    });
+    return () => { active = false; data.subscription.unsubscribe(); };
+  }, [router]);
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
@@ -159,11 +176,8 @@ function SiteChrome({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </nav>
-          <Link
-            to="/assistant"
-            className="hidden sm:inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-          >
-            Ask the AI
+          <Link to={signedIn ? "/admin" : "/auth"} className="hidden sm:inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">
+            {signedIn ? <Settings className="h-4 w-4" /> : <LogIn className="h-4 w-4" />}{signedIn ? "Manage library" : "Admin sign in"}
           </Link>
         </div>
         {/* Mobile nav */}
@@ -220,6 +234,7 @@ function SiteChrome({ children }: { children: ReactNode }) {
           </div>
         </div>
       </footer>
+      <Toaster richColors position="top-right" />
     </div>
   );
 }
