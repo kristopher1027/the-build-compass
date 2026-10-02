@@ -14,6 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { TranslationGlossaryManager } from "@/components/admin/TranslationGlossaryManager";
 
 type KnowledgeRow = Database["public"]["Tables"]["knowledge_entries"]["Row"];
 type EditorState = { id: string; title: string; category: KnowledgeCategory; content: string; tags: string; is_published: boolean };
@@ -100,6 +101,7 @@ function AdminPage() {
   return (
     <div className="min-h-[calc(100vh-8rem)] bg-muted/35">
       <div className="border-b bg-background"><div className="mx-auto max-w-7xl px-4 py-8 sm:px-6"><div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-xs uppercase tracking-widest text-terracotta">Keeper's workspace</p><h1 className="mt-2 text-3xl sm:text-4xl">What we ourselves say</h1><p className="mt-2 text-sm text-muted-foreground">{entries.length} entries · {entries.filter((entry) => entry.is_published).length} published</p></div><div className="flex gap-2"><Button variant="outline" size="icon" onClick={signOut} title="Sign out"><LogOut /><span className="sr-only">Sign out</span></Button><Button onClick={() => setEditor({ ...EMPTY })}><Plus /> Add entry</Button></div></div></div></div>
+      <TranslationGlossaryManager />
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
         <div className="relative max-w-md"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search title, category, or tag" className="pl-9 bg-background" /></div>
         <div className="mt-6 overflow-hidden rounded-md border bg-background">

@@ -53,6 +53,63 @@ export type Database = {
         }
         Relationships: []
       }
+      translation_glossary: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          dialect_notes: string
+          english_term: string
+          example_english: string
+          example_idoma: string
+          example_yoruba: string
+          id: string
+          idoma_term: string | null
+          is_approved: boolean
+          reviewer: string
+          source_license: string
+          source_name: string
+          updated_at: string
+          updated_by: string | null
+          yoruba_term: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          dialect_notes?: string
+          english_term: string
+          example_english?: string
+          example_idoma?: string
+          example_yoruba?: string
+          id?: string
+          idoma_term?: string | null
+          is_approved?: boolean
+          reviewer?: string
+          source_license?: string
+          source_name?: string
+          updated_at?: string
+          updated_by?: string | null
+          yoruba_term?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          dialect_notes?: string
+          english_term?: string
+          example_english?: string
+          example_idoma?: string
+          example_yoruba?: string
+          id?: string
+          idoma_term?: string | null
+          is_approved?: boolean
+          reviewer?: string
+          source_license?: string
+          source_name?: string
+          updated_at?: string
+          updated_by?: string | null
+          yoruba_term?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

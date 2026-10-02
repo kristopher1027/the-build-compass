@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { chatComplete, translateIdoma } from "@/lib/chat.functions";
+import type { GlossaryMatch } from "@/lib/glossary.server";
 import { ArrowLeftRight, Copy, Check, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/translate")({
@@ -32,6 +33,7 @@ function TranslatePage() {
   const [language, setLanguage] = useState<Language>("Idoma");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [glossaryMatches, setGlossaryMatches] = useState<GlossaryMatch[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -47,6 +49,7 @@ function TranslatePage() {
     setLoading(true);
     setError(null);
     setOutput("");
+    setGlossaryMatches([]);
     try {
       if (language === "Idoma") {
         const res = await callIdoma({
@@ -56,9 +59,11 @@ function TranslatePage() {
           },
         });
         setOutput(res.content.trim());
+        setGlossaryMatches(res.glossary);
       } else {
         const res = await call({
           data: {
+            glossaryDirection: dir === "en-to-language" ? "en-to-yo" : "yo-to-en",
             system: `You are a careful ${from}-to-${to} translator.
 
 Rules:
@@ -71,6 +76,7 @@ Rules:
           },
         });
         setOutput(res.content.trim());
+        setGlossaryMatches(res.glossary);
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Translation failed.");
@@ -83,6 +89,7 @@ Rules:
     setDir(dir === "en-to-language" ? "language-to-en" : "en-to-language");
     setInput(output);
     setOutput(input);
+    setGlossaryMatches([]);
   }
 
   async function copy() {
@@ -111,6 +118,7 @@ Rules:
               onClick={() => {
                 setLanguage(option);
                 setOutput("");
+                setGlossaryMatches([]);
               }}
               aria-pressed={language === option}
               className={`rounded-full border px-4 py-2 text-sm transition ${language === option ? "bg-primary text-primary-foreground" : "hover:bg-secondary"}`}
@@ -139,6 +147,7 @@ Rules:
               onChange={(e) => {
                 setInput(e.target.value);
                 setError(null);
+                setGlossaryMatches([]);
               }}
               placeholder={`Type in ${from}...`}
               rows={6}
@@ -169,6 +178,31 @@ Rules:
             </div>
           </div>
         </div>
+
+        {glossaryMatches.length > 0 && (
+          <section className="mt-5 border-t pt-4" aria-label="Approved glossary matches">
+            <h2 className="text-sm font-medium">Approved glossary matches</h2>
+            <ul className="mt-2 divide-y">
+              {glossaryMatches.map((entry) => (
+                <li
+                  key={`${entry.english_term}-${entry.yoruba_term}-${entry.idoma_term}`}
+                  className="py-2 text-sm"
+                >
+                  <p>
+                    <span className="font-medium">{entry.english_term}</span>:{" "}
+                    {entry.yoruba_term || "—"} / {entry.idoma_term || "—"}
+                  </p>
+                  {entry.dialect_notes && (
+                    <p className="mt-1 text-xs text-muted-foreground">{entry.dialect_notes}</p>
+                  )}
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {entry.source_name} · reviewed by {entry.reviewer}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {error && (
           <div className="mt-4 text-sm text-destructive bg-destructive/10 rounded-md px-3 py-2">

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 import type { KnowledgeEntry } from "@/data/knowledge";
+import { findGlossaryMatches, type GlossaryMatch } from "@/lib/glossary.server";
 
 const Message = z.object({
   role: z.enum(["system", "user", "assistant"]),
@@ -16,6 +17,7 @@ const Input = z.object({
   // (matched against the latest user message) and inject them as authoritative
   // context. The AI is instructed to cite entry titles as [Source: Title].
   groundOn: z.enum(["idoma-knowledge"]).optional(),
+  glossaryDirection: z.enum(["en-to-yo", "yo-to-en"]).optional(),
 });
 
 export type ChatMessage = z.infer<typeof Message>;
@@ -27,9 +29,38 @@ const IdomaTranslationInput = z.object({
   direction: z.enum(["en-to-idoma", "idoma-to-en"]),
 });
 
+function normalizeGlossaryTerm(value: string) {
+  return value
+    .toLocaleLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
 export const translateIdoma = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => IdomaTranslationInput.parse(data))
-  .handler(async ({ data }): Promise<{ content: string }> => {
+  .handler(async ({ data }): Promise<{ content: string; glossary: GlossaryMatch[] }> => {
+    const glossary = await findGlossaryMatches(
+      data.text,
+      "Idoma",
+      data.direction === "en-to-idoma" ? "English" : "Idoma",
+    );
+    const exactGlossaryMatch = glossary.find((entry) => {
+      const sourceTerm = data.direction === "en-to-idoma" ? entry.english_term : entry.idoma_term;
+      return (
+        sourceTerm !== null &&
+        normalizeGlossaryTerm(sourceTerm) === normalizeGlossaryTerm(data.text)
+      );
+    });
+    if (exactGlossaryMatch) {
+      const content =
+        data.direction === "en-to-idoma"
+          ? exactGlossaryMatch.idoma_term
+          : exactGlossaryMatch.english_term;
+      if (content) return { content, glossary };
+    }
+
     const endpoint =
       data.direction === "en-to-idoma"
         ? "translate_english_to_idoma"
@@ -78,7 +109,7 @@ export const translateIdoma = createServerFn({ method: "POST" })
     if (typeof content !== "string" || !content.trim()) {
       throw new Error("Idoma translator returned an empty translation.");
     }
-    return { content };
+    return { content, glossary };
   });
 
 function scoreKnowledge(entries: KnowledgeEntry[], query: string, k = 4) {
@@ -92,12 +123,44 @@ function scoreKnowledge(entries: KnowledgeEntry[], query: string, k = 4) {
 
 export const chatComplete = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => Input.parse(data))
-  .handler(async ({ data }): Promise<{ content: string; sources: ChatSource[] }> => {
+  .handler(async ({ data }): Promise<{ content: string; sources: ChatSource[]; glossary: GlossaryMatch[] }> => {
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("Missing LOVABLE_API_KEY");
 
     let system = data.system;
     let sources: ChatSource[] = [];
+    let glossary: GlossaryMatch[] = [];
+
+    if (data.glossaryDirection) {
+      const lastUser = [...data.messages].reverse().find((message) => message.role === "user");
+      if (lastUser) {
+        glossary = await findGlossaryMatches(
+          lastUser.content,
+          "Yoruba",
+          data.glossaryDirection === "en-to-yo" ? "English" : "Yoruba",
+        );
+        if (glossary.length > 0) {
+          const context = glossary
+            .map((entry) => [
+              `English: ${entry.english_term}`,
+              `Yoruba: ${entry.yoruba_term}`,
+              entry.dialect_notes ? `Notes: ${entry.dialect_notes}` : "",
+              entry.example_english && entry.example_yoruba
+                ? `Example: ${entry.example_english} → ${entry.example_yoruba}`
+                : "",
+              `Source: ${entry.source_name} (${entry.source_license}); reviewed by ${entry.reviewer}`,
+            ].filter(Boolean).join("\n"))
+            .join("\n\n");
+          system += `
+
+Use these approved English-Yoruba glossary entries as preferred terminology when relevant. Keep the translation natural; do not force a term where its meaning does not fit. Preserve Yoruba tone marks. The source direction is ${data.glossaryDirection === "en-to-yo" ? "English to Yoruba" : "Yoruba to English"}.
+
+<approved_translation_glossary>
+${context}
+</approved_translation_glossary>`;
+        }
+      }
+    }
 
     if (data.groundOn === "idoma-knowledge") {
       const lastUser = [...data.messages].reverse().find((m) => m.role === "user");
@@ -166,5 +229,5 @@ When you use information from the entries above, cite the entry title inline lik
       choices?: { message?: { content?: string } }[];
     };
     const content = json.choices?.[0]?.message?.content ?? "";
-    return { content, sources };
+    return { content, sources, glossary };
   });
