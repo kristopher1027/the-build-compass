@@ -30,24 +30,41 @@ function AuthPage() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
-    setBusy(true); setError(""); setMessage("");
-    if (mode === "signup") {
-      const result = await supabase.auth.signUp({
-        email, password,
-        options: { data: { display_name: displayName.trim() }, emailRedirectTo: window.location.origin + "/auth" },
-      });
-      setBusy(false);
-      if (result.error) { setError(result.error.message); return; }
-      if (!result.data.session) {
-        setMessage("Check your email and confirm your address. Then return here to sign in.");
-        return;
+    setBusy(true);
+    setError("");
+    setMessage("");
+    try {
+      if (mode === "signup") {
+        const result = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { display_name: displayName.trim() },
+            emailRedirectTo: window.location.origin + "/auth",
+          },
+        });
+        if (result.error) {
+          setError(result.error.message);
+          return;
+        }
+        if (!result.data.session) {
+          setMessage("Check your email and confirm your address. Then return here to sign in.");
+          return;
+        }
+      } else {
+        const result = await supabase.auth.signInWithPassword({ email, password });
+        if (result.error) {
+          setError(result.error.message);
+          return;
+        }
       }
-    } else {
-      const result = await supabase.auth.signInWithPassword({ email, password });
+
+      await navigate({ to: "/admin", replace: true });
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "Unable to sign in. Please try again.");
+    } finally {
       setBusy(false);
-      if (result.error) { setError(result.error.message); return; }
     }
-    await navigate({ to: "/admin", replace: true });
   }
 
   return (

@@ -22,6 +22,65 @@ export type ChatMessage = z.infer<typeof Message>;
 
 export type ChatSource = { id: string; title: string; category: string };
 
+const IdomaTranslationInput = z.object({
+  text: z.string().trim().min(1).max(5000),
+  direction: z.enum(["en-to-idoma", "idoma-to-en"]),
+});
+
+export const translateIdoma = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => IdomaTranslationInput.parse(data))
+  .handler(async ({ data }): Promise<{ content: string }> => {
+    const endpoint =
+      data.direction === "en-to-idoma"
+        ? "translate_english_to_idoma"
+        : "translate_idoma_to_english";
+    const baseUrl = "https://emoduh-idoma-translator.hf.space/gradio_api/call";
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ data: [data.text] }),
+      signal: AbortSignal.timeout(120_000),
+    };
+
+    const startResponse = await fetch(`${baseUrl}/${endpoint}`, requestOptions);
+    if (!startResponse.ok) {
+      throw new Error(`Idoma translator could not start (${startResponse.status}).`);
+    }
+    const { event_id: eventId } = (await startResponse.json()) as { event_id?: string };
+    if (!eventId) throw new Error("Idoma translator returned an invalid job response.");
+
+    const resultResponse = await fetch(`${baseUrl}/${endpoint}/${encodeURIComponent(eventId)}`, {
+      signal: AbortSignal.timeout(120_000),
+    });
+    if (!resultResponse.ok) {
+      throw new Error(`Idoma translation failed (${resultResponse.status}).`);
+    }
+
+    const stream = await resultResponse.text();
+    const events = stream.split(/\r?\n\r?\n/).map((block) => ({
+      name: block.match(/^event: (.+)$/m)?.[1],
+      data: block
+        .split(/\r?\n/)
+        .filter((line) => line.startsWith("data:"))
+        .map((line) => line.slice(5).trim())
+        .join("\n"),
+    }));
+    const resultEvent = events.find((event) => event.name === "complete");
+    if (!resultEvent?.data) {
+      if (events.some((event) => event.name === "error")) {
+        throw new Error("The Idoma translation service reported an error.");
+      }
+      throw new Error("Idoma translator returned no translation.");
+    }
+
+    const result = JSON.parse(resultEvent.data) as unknown;
+    const content = Array.isArray(result) ? result[0] : result;
+    if (typeof content !== "string" || !content.trim()) {
+      throw new Error("Idoma translator returned an empty translation.");
+    }
+    return { content };
+  });
+
 function scoreKnowledge(entries: KnowledgeEntry[], query: string, k = 4) {
   const tokens = Array.from(new Set(query.toLowerCase().split(/[^a-z0-9']+/).filter((token) => token.length > 2)));
   return entries.map((entry) => {
