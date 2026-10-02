@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep public knowledge in Lovable Cloud and access it through server functions so the library and AI always use administrator-managed content.
+- Store administrator privileges only in `user_roles` and enforce every knowledge write with database access policies, because UI-only checks are not security.
