@@ -9,79 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AssistantRouteImport } from './routes/assistant'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as BusinessesRouteImport } from './routes/businesses'
-import { Route as FestivalsRouteImport } from './routes/festivals'
-import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as KnowledgeRouteImport } from './routes/knowledge'
-import { Route as PlacesRouteImport } from './routes/places'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as StoriesRouteImport } from './routes/stories'
-import { Route as TranslateRouteImport } from './routes/translate'
 import { Route as TutorRouteImport } from './routes/tutor'
+import { Route as TranslateRouteImport } from './routes/translate'
+import { Route as StoriesRouteImport } from './routes/stories'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as PlacesRouteImport } from './routes/places'
+import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as FestivalsRouteImport } from './routes/festivals'
+import { Route as BusinessesRouteImport } from './routes/businesses'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AssistantRouteImport } from './routes/assistant'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AssistantRoute = AssistantRouteImport.update({
-  id: '/assistant',
-  path: '/assistant',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BusinessesRoute = BusinessesRouteImport.update({
-  id: '/businesses',
-  path: '/businesses',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FestivalsRoute = FestivalsRouteImport.update({
-  id: '/festivals',
-  path: '/festivals',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KnowledgeRoute = KnowledgeRouteImport.update({
-  id: '/knowledge',
-  path: '/knowledge',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlacesRoute = PlacesRouteImport.update({
-  id: '/places',
-  path: '/places',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StoriesRoute = StoriesRouteImport.update({
-  id: '/stories',
-  path: '/stories',
+const TutorRoute = TutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TranslateRoute = TranslateRouteImport.update({
@@ -89,9 +35,63 @@ const TranslateRoute = TranslateRouteImport.update({
   path: '/translate',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TutorRoute = TutorRouteImport.update({
-  id: '/tutor',
-  path: '/tutor',
+const StoriesRoute = StoriesRouteImport.update({
+  id: '/stories',
+  path: '/stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlacesRoute = PlacesRouteImport.update({
+  id: '/places',
+  path: '/places',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeRoute = KnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FestivalsRoute = FestivalsRouteImport.update({
+  id: '/festivals',
+  path: '/festivals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessesRoute = BusinessesRouteImport.update({
+  id: '/businesses',
+  path: '/businesses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssistantRoute = AssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -221,88 +221,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/assistant': {
-      id: '/assistant'
-      path: '/assistant'
-      fullPath: '/assistant'
-      preLoaderRoute: typeof AssistantRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/businesses': {
-      id: '/businesses'
-      path: '/businesses'
-      fullPath: '/businesses'
-      preLoaderRoute: typeof BusinessesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/festivals': {
-      id: '/festivals'
-      path: '/festivals'
-      fullPath: '/festivals'
-      preLoaderRoute: typeof FestivalsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/forgot-password': {
-      id: '/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof ForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/knowledge': {
-      id: '/knowledge'
-      path: '/knowledge'
-      fullPath: '/knowledge'
-      preLoaderRoute: typeof KnowledgeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/places': {
-      id: '/places'
-      path: '/places'
-      fullPath: '/places'
-      preLoaderRoute: typeof PlacesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/stories': {
-      id: '/stories'
-      path: '/stories'
-      fullPath: '/stories'
-      preLoaderRoute: typeof StoriesRouteImport
+    '/tutor': {
+      id: '/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof TutorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/translate': {
@@ -312,11 +235,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TranslateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tutor': {
-      id: '/tutor'
-      path: '/tutor'
-      fullPath: '/tutor'
-      preLoaderRoute: typeof TutorRouteImport
+    '/stories': {
+      id: '/stories'
+      path: '/stories'
+      fullPath: '/stories'
+      preLoaderRoute: typeof StoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/places': {
+      id: '/places'
+      path: '/places'
+      fullPath: '/places'
+      preLoaderRoute: typeof PlacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge': {
+      id: '/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/festivals': {
+      id: '/festivals'
+      path: '/festivals'
+      fullPath: '/festivals'
+      preLoaderRoute: typeof FestivalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/businesses': {
+      id: '/businesses'
+      path: '/businesses'
+      fullPath: '/businesses'
+      preLoaderRoute: typeof BusinessesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assistant': {
+      id: '/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
