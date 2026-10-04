@@ -22,6 +22,8 @@ export type Database = {
           created_by: string | null
           id: string
           is_published: boolean
+          source_label: string | null
+          source_url: string | null
           tags: string[]
           title: string
           updated_at: string
@@ -34,6 +36,8 @@ export type Database = {
           created_by?: string | null
           id: string
           is_published?: boolean
+          source_label?: string | null
+          source_url?: string | null
           tags?: string[]
           title: string
           updated_at?: string
@@ -46,67 +50,12 @@ export type Database = {
           created_by?: string | null
           id?: string
           is_published?: boolean
+          source_label?: string | null
+          source_url?: string | null
           tags?: string[]
           title?: string
           updated_at?: string
           updated_by?: string | null
-        }
-        Relationships: []
-      }
-      translation_glossary: {
-        Row: {
-          created_at: string
-          created_by: string | null
-          dialect_notes: string
-          english_term: string
-          example_english: string
-          example_idoma: string
-          example_yoruba: string
-          id: string
-          idoma_term: string | null
-          is_approved: boolean
-          reviewer: string
-          source_license: string
-          source_name: string
-          updated_at: string
-          updated_by: string | null
-          yoruba_term: string | null
-        }
-        Insert: {
-          created_at?: string
-          created_by?: string | null
-          dialect_notes?: string
-          english_term: string
-          example_english?: string
-          example_idoma?: string
-          example_yoruba?: string
-          id?: string
-          idoma_term?: string | null
-          is_approved?: boolean
-          reviewer?: string
-          source_license?: string
-          source_name?: string
-          updated_at?: string
-          updated_by?: string | null
-          yoruba_term?: string | null
-        }
-        Update: {
-          created_at?: string
-          created_by?: string | null
-          dialect_notes?: string
-          english_term?: string
-          example_english?: string
-          example_idoma?: string
-          example_yoruba?: string
-          id?: string
-          idoma_term?: string | null
-          is_approved?: boolean
-          reviewer?: string
-          source_license?: string
-          source_name?: string
-          updated_at?: string
-          updated_by?: string | null
-          yoruba_term?: string | null
         }
         Relationships: []
       }
