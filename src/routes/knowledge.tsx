@@ -3,7 +3,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { KNOWLEDGE_CATEGORIES, type KnowledgeCategory } from "@/data/knowledge";
 import { getPublishedKnowledge } from "@/lib/knowledge.functions";
-import { BookOpen, Search, Sparkles } from "lucide-react";
+import { BookOpen, ExternalLink, Search, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const knowledgeQuery = queryOptions({ queryKey: ["published-knowledge"], queryFn: () => getPublishedKnowledge() });
@@ -16,12 +16,12 @@ export const Route = createFileRoute("/knowledge")({
       {
         name: "description",
         content:
-          "The verified corpus of Ai wa — our history, rulers, clans, festivals, proverbs and greetings, written from inside the culture. The library the AI reads before it answers.",
+          "The source-backed library of real Idoma places, festivals and businesses that the Assistant reads before it answers.",
       },
       { property: "og:title", content: "What we ourselves say — Ai wa" },
       {
         property: "og:description",
-        content: "The Idoma corpus our AI cites — in our own voice.",
+        content: "Real Idoma places, festivals and businesses with sources the Assistant cites.",
       },
     ],
   }),
@@ -55,10 +55,9 @@ function KnowledgePage() {
           The words of Ai wa, in our own voice.
         </h1>
         <p className="mt-3 text-muted-foreground max-w-2xl">
-          A library written from inside the culture — the way our fathers
-          would tell it, not the way a stranger would summarise it. The AI on
-          this site reads these entries first and cites them back to you, so
-          you know the answer came from us.
+          Real places, festivals and businesses across our home, checked
+          against published sources. The Assistant reads these records first
+          and shows where each fact came from.
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -128,6 +127,11 @@ function KnowledgePage() {
                     </span>
                   ))}
                 </div>
+              )}
+              {e.source_url && (
+                <a href={e.source_url} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline">
+                  {e.source_label ?? "Read the source"} <ExternalLink className="h-3 w-3" />
+                </a>
               )}
             </article>
           ))}

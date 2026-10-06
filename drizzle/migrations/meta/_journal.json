@@ -15,6 +15,13 @@
       "when": 1791144130184,
       "tag": "0001_add_business_knowledge_category",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791302920122,
+      "tag": "0002_create_translation_glossary",
+      "breakpoints": true
     }
   ]
 }

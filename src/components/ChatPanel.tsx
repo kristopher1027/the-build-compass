@@ -79,14 +79,12 @@ export function ChatPanel({ system, greeting, placeholder, suggestions, groundOn
                     <BookOpen className="w-3 h-3" /> Sources from verified corpus
                   </div>
                   <div className="flex flex-wrap gap-1.5">
-                    {m.sources.map((s) => (
-                      <span
-                        key={s.id}
-                        className="text-[11px] px-2 py-0.5 rounded-full bg-background border text-foreground/80"
-                        title={s.category}
-                      >
+                    {m.sources.map((s) => s.sourceUrl ? (
+                      <a key={s.id} href={s.sourceUrl} target="_blank" rel="noreferrer" className="text-[11px] px-2 py-0.5 rounded-full bg-background border text-foreground/80 hover:text-primary" title={`${s.category} · ${s.sourceLabel ?? "Open source"}`}>
                         {s.title}
-                      </span>
+                      </a>
+                    ) : (
+                      <span key={s.id} className="text-[11px] px-2 py-0.5 rounded-full bg-background border text-foreground/80" title={s.category}>{s.title}</span>
                     ))}
                   </div>
                 </div>
