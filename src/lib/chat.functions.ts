@@ -22,7 +22,13 @@ const Input = z.object({
 
 export type ChatMessage = z.infer<typeof Message>;
 
-export type ChatSource = { id: string; title: string; category: string };
+export type ChatSource = {
+  id: string;
+  title: string;
+  category: string;
+  sourceLabel: string | null;
+  sourceUrl: string | null;
+};
 
 const IdomaTranslationInput = z.object({
   text: z.string().trim().min(1).max(5000),
@@ -178,16 +184,22 @@ ${context}
               return fetch(input, { ...init, headers });
             } },
           });
-          const { data: rows } = await client.from("knowledge_entries").select("id,title,category,content,tags").eq("is_published", true);
+          const { data: rows } = await client.from("knowledge_entries").select("id,title,category,content,tags,source_label,source_url").eq("is_published", true);
           entries = (rows ?? []) as KnowledgeEntry[];
         }
         const hits = scoreKnowledge(entries, lastUser.content, 4);
-        sources = hits.map((h) => ({ id: h.id, title: h.title, category: h.category }));
+        sources = hits.map((h) => ({
+          id: h.id,
+          title: h.title,
+          category: h.category,
+          sourceLabel: h.source_label ?? null,
+          sourceUrl: h.source_url ?? null,
+        }));
         if (hits.length > 0) {
           const context = hits
             .map(
               (h, i) =>
-                `[${i + 1}] ${h.title} (${h.category})\n${h.content}`,
+                `[${i + 1}] ${h.title} (${h.category})\n${h.content}\nPublished source: ${h.source_label ?? "Not supplied"}${h.source_url ? ` — ${h.source_url}` : ""}`,
             )
             .join("\n\n");
           system += `

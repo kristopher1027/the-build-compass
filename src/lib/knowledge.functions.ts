@@ -24,7 +24,7 @@ export const getPublishedKnowledge = createServerFn({ method: "GET" }).handler(
     });
     const { data, error } = await client
       .from("knowledge_entries")
-      .select("id,title,category,content,tags")
+      .select("id,title,category,content,tags,source_label,source_url")
       .eq("is_published", true)
       .order("category")
       .order("title");
