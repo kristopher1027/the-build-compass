@@ -10,4 +10,5 @@
 <!-- LOVABLE:END -->
 
 - Keep public knowledge in Lovable Cloud and access it through server functions so the library and AI always use administrator-managed content.
+- Build places, festivals, and business directories from the same sourced knowledge records so public pages and AI answers cannot drift apart.
 - Store administrator privileges only in `user_roles` and enforce every knowledge write with database access policies, because UI-only checks are not security.
